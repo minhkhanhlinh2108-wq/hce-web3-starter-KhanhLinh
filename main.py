@@ -117,7 +117,7 @@ def analyze_wallet(address):
         plt.xticks(rotation=45)
     plt.tight_layout()
     plt.savefig("bieu_do.png")
-    print("Đã lưu biểu đồ thành tệp bieu_do.png trong thư mục hiện tại.")
+print("Đã lưu biểu đồ thành tệp bieu_do.png trong thư mục hiện tại.")
 
 if __name__ == "__main__":
     # Thay địa chỉ ví dưới đây bằng địa chỉ mẫu giảng viên cung cấp
