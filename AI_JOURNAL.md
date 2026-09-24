@@ -93,3 +93,82 @@
 
 - **AI có nói sai chỗ nào không:** 
   Không. AI bám sát chính xác vào mã nguồn được cung cấp, trích dẫn đúng số dòng và không tự bịa ra các lỗi bảo mật hay các hàm không tồn tại trong Hợp đồng A.
+
+---
+
+## Lab 05: Đặc tả yêu cầu công cụ phân tích dòng tiền (SPEC.md)
+
+**Prompt:**
+> Hãy tạo một tệp có tên `SPEC.md` trong thư mục hiện tại. Nội dung tệp chứa bản đặc tả yêu cầu cho công cụ phân tích dòng tiền với cấu trúc chính xác như sau:
+> ## 1. Bài toán
+> Xây dựng một công cụ nhận vào một địa chỉ ví, trả về báo cáo dòng tiền vào và ra của ví đó trong 90 ngày gần nhất, kèm biểu đồ số dư theo thời gian.
+> ## 2. Đầu vào
+> - Một địa chỉ ví, dạng chuỗi 42 ký tự bắt đầu bằng 0x.
+> - Khóa API của Etherscan, đọc từ biến môi trường ETHERSCAN_API_KEY.
+> - Số ngày cần phân tích, mặc định 90.
+> ## 3. Quy tắc nghiệp vụ
+> - R1: Giao dịch có trường "to" trùng địa chỉ đang xét được tính là dòng tiền vào.
+> - R2: Giao dịch có trường "from" trùng địa chỉ đang xét được tính là dòng tiền ra.
+> - R3: Với giao dịch đi ra, số tiền thực trừ khỏi ví = giá trị chuyển + phí giao dịch.
+> - R4: Giao dịch có trạng thái thất bại vẫn bị trừ phí, phải tính vào dòng tiền ra.
+> - R5: Mọi số tiền lấy về ở đơn vị wei, phải chia cho 10^18 trước khi hiển thị.
+> - R6: Sắp xếp theo thời gian tăng dần.
+> ## 4. Đầu ra
+> - Bảng dữ liệu gồm: thời gian, loại (vào/ra), số tiền ETH, phí, số dư lũy kế.
+> - Một biểu đồ đường: trục ngang là thời gian, trục dọc là số dư lũy kế.
+> - Ba con số tổng hợp: tổng vào, tổng ra, số dư cuối kỳ.
+> ## 5. Trường hợp ngoại lệ
+> - Nếu API trả về danh sách rỗng: in thông báo "Vi khong co giao dich trong ky", không báo lỗi.
+> - Nếu API trả về mã lỗi: in mã lỗi và dừng, không xử lý tiếp.
+> - Nếu ví có hơn 10.000 giao dịch: API trả theo trang, phải lấy đủ các trang.
+> ## 6. Ngoài phạm vi
+> - Không phân tích giao dịch token (chỉ ETH gốc).
+> - Không quy đổi ra tiền Việt.
+
+**AI trả về:**
+- Đã khởi tạo hoàn chỉnh tệp `SPEC.md` với đúng 6 phần theo đặc tả kỹ thuật: Bài toán, Đầu vào, 6 Quy tắc nghiệp vụ (R1-R6), Đầu ra, Trường hợp ngoại lệ và Ngoài phạm vi.
+
+**Đánh giá:** Dùng được.
+
+**Chỗ sai / Điểm cần lưu ý:**
+- Đặc tả yêu cầu đọc khóa API từ biến môi trường `ETHERSCAN_API_KEY` hoàn toàn khớp với quy tắc bảo mật khi viết Python trong `AGENTS.md`.
+- Quy tắc R3 và R4 phân định chính xác tính chất on-chain: giao dịch chuyển đi thất bại vẫn tiêu tốn gas và trừ phí khỏi ví người gửi.
+- Cần chú ý thuật toán phân trang (pagination) của Etherscan API khi số lượng giao dịch vượt ngưỡng 10.000 bản ghi.
+
+**Cách sửa:** Thiết lập cấu trúc đặc tả chuẩn xác, sẵn sàng làm cơ sở kiểm thử cho việc cài đặt mã nguồn phân tích dòng tiền.
+
+**Ai phát hiện:** AI và sinh viên thống nhất theo tài liệu đặc tả.
+
+### Kiểm tra chéo đặc tả (NHAN_XET.md)
+
+**Prompt:**
+> Dựa vào bản đặc tả trong tệp `SPEC.md` vừa tạo, bạn hãy đóng vai là một Chuyên viên phân tích (BA) của nhóm bên cạnh để thực hiện bước "Kiểm tra chéo". 
+> Nhiệm vụ của bạn là đọc kỹ đặc tả và chỉ ra ít nhất 2 chỗ còn mơ hồ, thiếu sót hoặc chưa rõ ràng trong bản yêu cầu này (ví dụ: thiếu định nghĩa về số dư đầu kỳ khi tính số dư lũy kế, hoặc chưa rõ biểu đồ đường hiển thị trên giao diện web hay terminal).
+> Hãy ghi 2 nhận xét mơ hồ này vào một tệp mới có tên `NHAN_XET.md`.
+
+**AI trả về:**
+- Đóng vai BA chỉ ra 4 điểm thiếu sót / mơ hồ kỹ thuật then chốt trong `SPEC.md` và lưu vào tệp `NHAN_XET.md`:
+  1. Thiếu định nghĩa về "Số dư đầu kỳ" (Starting Balance) dẫn đến nguy cơ số dư lũy kế bị âm hoặc sai lệch bản chất.
+  2. Chưa chỉ định nền tảng hiển thị và định dạng biểu đồ (Web Dashboard HTML/JS hay CLI Terminal / ảnh PNG).
+  3. Thiếu quy tắc xử lý giao dịch tự chuyển cho chính mình (`from == to`).
+  4. Chưa làm rõ mạng Blockchain mục tiêu (Ethereum Mainnet hay Sepolia Testnet).
+
+**Đánh giá:** Dùng được.
+
+**Chỗ sai / Điểm cần lưu ý:** Các điểm mơ hồ được chỉ ra rất xác đáng, sát với thực tế triển khai Web3 và giúp tránh rủi ro lệch tiêu chí nghiệm thu.
+
+**Cách sửa:** Tạo lập tệp `NHAN_XET.md` hoàn chỉnh để nhóm đối tác phản biện và hoàn thiện đặc tả.
+
+**Ai phát hiện:** AI (trong vai trò BA nhóm kiểm tra chéo) phát hiện.
+
+---
+
+## Lab 06 - Nhật ký kiểm tra mã AI sinh ra
+
+**Lỗi 1 (Mục số 4 trong danh mục kiểm tra: Giao dịch thất bại):**
+- **AI phát hiện:** Khi viết quy tắc xử lý dòng tiền ra, công cụ AI đã dùng lệnh `if tx['isError'] == '1': continue;` để bỏ qua toàn bộ giao dịch lỗi.
+- **Cách sửa:** Tôi đã sửa lại mã để khi `isError == '1'` ở dòng tiền ra (from), chương trình không cộng giá trị chuyển (value) nhưng vẫn phải trừ đi phí giao dịch (fee_eth) vào số dư, đảm bảo tuân thủ đúng Quy tắc R4 trong đặc tả.
+
+**Lỗi 2 (Mục số 3 trong danh mục kiểm tra: Phân trang):**
+- **AI phát hiện:** Mã AI sinh ra lúc đầu chỉ gọi API đúng một lần (lấy mặc định trang 1), bỏ qua trường hợp ngoại lệ "Nếu ví có hơn 10.000 giao dịch: API trả theo trang". Điều này dẫn đến thiếu hụt dữ liệu nghiêm trọng.
+- **Cách sửa:** Tôi đã bổ sung vòng lặp `while True`, tăng biến `page += 1` sau mỗi lần gọi và điều kiện dừng `if len(txs) < 10000: break` để đảm bảo lấy toàn bộ lịch sử giao dịch trước khi tiến hành lọc 90 ngày.
