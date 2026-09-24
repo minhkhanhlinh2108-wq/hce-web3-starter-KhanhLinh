@@ -28,4 +28,3 @@
 - Hỏi lại khi yêu cầu chưa rõ; không tự suy đoán quy tắc kinh tế.
 - Nêu tối thiểu ba trường hợp kiểm thử, gồm một trường hợp gian lận.
 - Chú thích trong mã bằng Tiếng Việt không dấu.
-
