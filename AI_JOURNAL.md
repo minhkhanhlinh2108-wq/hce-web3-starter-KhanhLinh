@@ -172,3 +172,28 @@
 **Lỗi 2 (Mục số 3 trong danh mục kiểm tra: Phân trang):**
 - **AI phát hiện:** Mã AI sinh ra lúc đầu chỉ gọi API đúng một lần (lấy mặc định trang 1), bỏ qua trường hợp ngoại lệ "Nếu ví có hơn 10.000 giao dịch: API trả theo trang". Điều này dẫn đến thiếu hụt dữ liệu nghiêm trọng.
 - **Cách sửa:** Tôi đã bổ sung vòng lặp `while True`, tăng biến `page += 1` sau mỗi lần gọi và điều kiện dừng `if len(txs) < 10000: break` để đảm bảo lấy toàn bộ lịch sử giao dịch trước khi tiến hành lọc 90 ngày.
+
+---
+
+## Lab 07: Báo cáo tính khả thi dự án thẻ tích điểm (lab07.md)
+
+**Prompt:**
+> Hãy tạo một tệp có tên `lab07.md` trong thư mục hiện tại để báo cáo tính khả thi của dự án thẻ tích điểm. Nội dung tệp cần có một bảng tính chi phí và các đoạn văn trả lời 4 câu hỏi phân tích...
+> a. Bảng tính chi phí một tháng bằng USD trên mạng chính (Layer 1). Trình bày rõ từng bước tính: tổng gas 1 tháng, quy đổi ra ETH, và quy đổi ra USD.
+> b. Tính chi phí một tháng nếu chuyển sang mạng Layer 2 (đơn giá rẻ hơn 100 lần).
+> c. Trả lời câu hỏi: Ai trả khoản này — câu lạc bộ hay sinh viên? Nếu sinh viên trả (chịu phí giao dịch để nhận điểm), họ có chấp nhận không? (Hãy phân tích tính kinh tế: so sánh giữa chi phí giao dịch và giá trị thực tế của 1 điểm thưởng sinh viên).
+> d. Kết luận rút ra: Mô hình kinh doanh này khả thi trên mạng nào?
+
+**AI trả về:**
+- Thiết lập tệp `lab07.md` hoàn chỉnh với các công thức và bảng so sánh chi phí chi tiết giữa Layer 1 và Layer 2 (L1 tốn $1.200 USD/tháng vs. L2 chỉ tốn $12 USD/tháng).
+- Phân tích kinh tế vi mô: Phí gas trên L1 ($1.20 ~ 30.000 VNĐ) cao gấp 30 lần giá trị thực của 1 điểm thưởng sinh viên (~1.000 VNĐ), do đó sinh viên chắc chắn sẽ từ chối tham gia.
+- Đề xuất giải pháp khả thi: Triển khai trên Layer 2 kết hợp cơ chế tài trợ gas (ERC-4337 Paymaster) do CLB chi trả (khoảng $12/tháng).
+- Kết luận: Mô hình hoàn toàn bất khả thi trên Ethereum Layer 1 và cực kỳ khả thi trên Layer 2.
+
+**Đánh giá:** Dùng được.
+
+**Chỗ sai / Điểm cần lưu ý:** Cần đối chiếu tỷ giá ETH/USD thực tế và giá trị quy đổi của điểm thưởng sinh viên để lập luận thuyết phục.
+
+**Cách sửa:** Trình bày rõ ràng từng bước tính toán số học và bảng đối chiếu trực quan.
+
+**Ai phát hiện:** AI và sinh viên cùng thống nhất theo yêu cầu phân tích kinh tế.
