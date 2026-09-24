@@ -28,3 +28,14 @@
 - Hỏi lại khi yêu cầu chưa rõ; không tự suy đoán quy tắc kinh tế.
 - Nêu tối thiểu ba trường hợp kiểm thử, gồm một trường hợp gian lận.
 - Chú thích trong mã bằng Tiếng Việt không dấu.
+
+## Quy tắc đồng bộ nhật ký làm việc (AI_JOURNAL.md)
+
+- Mọi bài thực hành (Lab) hoặc tệp công việc mới khi được thực hiện đều phải tự động đồng bộ và ghi lại nhật ký làm việc vào `AI_JOURNAL.md`.
+- Cấu trúc mục nhật ký chuẩn gồm:
+  - **Prompt:** Nguyên văn yêu cầu của người dùng.
+  - **AI trả về:** Tóm tắt giải pháp / mã / phân tích của AI.
+  - **Đánh giá:** Dùng được / Phải sửa / Sai, bỏ.
+  - **Chỗ sai / Điểm cần lưu ý:** Chi tiết kỹ thuật hoặc phản biện thực tế.
+  - **Cách sửa:** Giải pháp người dùng / AI đã thực hiện.
+  - **Ai phát hiện:** AI tự nhận / Sinh viên phát hiện.
