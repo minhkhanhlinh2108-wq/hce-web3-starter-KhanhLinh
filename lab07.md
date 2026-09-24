@@ -1,88 +1,68 @@
-# Báo cáo Đánh giá Tính khả thi Dự án Thẻ Tích điểm Sinh viên (Lab 07)
+# Báo cáo Bài toán Kinh tế Thẻ Tích điểm (Lab 07 - Bước 2)
 
-## 1. Thông số đầu vào và Giả định mô hình
+## 1. Bảng tính chi phí một tháng trên mạng chính (Layer 1)
 
-* **Quy mô hoạt động:** 1.000 lượt cộng điểm / tháng.
-* **Loại thao tác blockchain:** Ghi trạng thái biến mới vào bộ nhớ lưu trữ (`SSTORE` / Storage).
-* **Lượng gas tiêu thụ ước tính:** 20.000 gas / giao dịch.
-* **Đơn giá gas mạng chính (Layer 1):** 20 Gwei ($20 \times 10^{-9}$ ETH).
-* **Giá thị trường tham chiếu của ETH:** 3.000 USD / ETH.
-* **Công thức tính toán:**
-  $$\text{Chi phí (ETH)} = \text{Lượng gas tiêu thụ} \times \text{Đơn giá (Gwei)} \times 10^{-9}$$
-  $$\text{Chi phí (USD)} = \text{Chi phí (ETH)} \times \text{Giá ETH (USD)}$$
+Dữ liệu đầu vào:
+* **Số lượng:** 1.000 lượt cộng điểm / tháng.
+* **Lượng gas tiêu thụ:** 20.000 gas / giao dịch.
+* **Đơn giá gas (Layer 1):** 20 Gwei ($20 \times 10^{-9}$ ETH).
+* **Giá ETH:** 3.000 USD / ETH.
+* **Công thức:** $\text{Chi phí (ETH)} = \text{Lượng gas tiêu thụ} \times \text{Đơn giá (Gwei)} \times 10^{-9}$.
 
----
+### Bảng các bước tính chi phí trên Layer 1:
 
-## 2. Bảng tính chi phí chi tiết: Layer 1 vs. Layer 2
-
-### a. Bảng tính chi phí một tháng bằng USD trên mạng chính (Layer 1)
-
-* **Bước 1: Tính tổng lượng gas tiêu thụ trong 1 tháng:**
-  $$\text{Tổng gas} = 1.000 \text{ lượt} \times 20.000 \text{ gas} = 20.000.000 \text{ gas}$$
-* **Bước 2: Quy đổi chi phí ra ETH:**
-  * Cho 1 giao dịch: $20.000 \times 20 \times 10^{-9} = 0,0004 \text{ ETH}$
-  * Cho cả tháng (1.000 giao dịch): $20.000.000 \times 20 \times 10^{-9} = 0,4 \text{ ETH}$
-* **Bước 3: Quy đổi chi phí ra USD (tỷ giá 3.000 USD/ETH):**
-  * Cho 1 giao dịch: $0,0004 \text{ ETH} \times 3.000 \text{ USD} = 1,20 \text{ USD}$
-  * Cho cả tháng (1.000 giao dịch): $0,4 \text{ ETH} \times 3.000 \text{ USD} = 1.200 \text{ USD}$
-
----
-
-### b. Chi phí một tháng nếu chuyển sang mạng Layer 2 (Rẻ hơn 100 lần)
-
-* **Chi phí cho 1 giao dịch trên Layer 2:**
-  * Chi phí ETH: $\frac{0,0004 \text{ ETH}}{100} = 0,000004 \text{ ETH}$
-  * Chi phí USD: $\frac{1,20 \text{ USD}}{100} = 0,012 \text{ USD}$ (~300 VNĐ)
-* **Tổng chi phí cho cả tháng (1.000 giao dịch):**
-  * Tổng chi phí ETH: $\frac{0,4 \text{ ETH}}{100} = 0,004 \text{ ETH}$
-  * Tổng chi phí USD: $\frac{1.200 \text{ USD}}{100} = 12 \text{ USD}$ (~300.000 VNĐ)
-
----
-
-### Bảng so sánh tổng hợp chi phí
-
-| Chỉ số / Khoản mục | Mạng chính (Layer 1) | Mạng Layer 2 (Rẻ hơn 100 lần) | Chênh lệch tiết kiệm |
+| Bước tính toán | Công thức / Phép tính | Chi phí cho 1 giao dịch | Chi phí cho cả tháng (1.000 lượt) |
 | :--- | :--- | :--- | :--- |
-| **Gas tiêu thụ / giao dịch** | 20.000 gas | 20.000 gas | - |
-| **Đơn giá Gas** | 20 Gwei | 0,2 Gwei | Giảm 100 lần |
-| **Chi phí 1 giao dịch (ETH)** | 0,0004 ETH | 0,000004 ETH | Tiết kiệm 0,000396 ETH |
-| **Chi phí 1 giao dịch (USD)** | **1,20 USD** (~30.000 VNĐ) | **0,012 USD** (~300 VNĐ) | Giảm từ 30.000đ xuống 300đ |
-| **Tổng gas tiêu thụ / tháng** | 20.000.000 gas | 20.000.000 gas | - |
-| **Tổng chi phí tháng (ETH)** | 0,4 ETH | 0,004 ETH | Tiết kiệm 0,396 ETH |
-| **Tổng chi phí tháng (USD)** | **1.200 USD** (~30.000.000 VNĐ) | **12 USD** (~300.000 VNĐ) | **Tiết kiệm 1.188 USD / tháng** |
+| **Bước 1: Lượng gas tiêu thụ** | $\text{Số lượt} \times 20.000 \text{ gas}$ | $20.000 \text{ gas}$ | $\mathbf{20.000.000 \text{ gas}}$ |
+| **Bước 2: Quy đổi ra ETH** | $\text{Gas} \times 20 \times 10^{-9}$ | $0,0004 \text{ ETH}$ | $\mathbf{0,4 \text{ ETH}}$ |
+| **Bước 3: Quy đổi ra USD** | $\text{ETH} \times 3.000 \text{ USD}$ | $1,20 \text{ USD}$ (~30.000 VNĐ) | $\mathbf{1.200 \text{ USD}}$ (~30.000.000 VNĐ) |
 
 ---
 
-## 3. Phân tích kinh tế và Trải nghiệm người dùng
+## 2. Chi phí một tháng nếu chuyển sang mạng Layer 2 (Đơn giá rẻ hơn 100 lần)
 
-### c. Ai trả khoản này — Câu lạc bộ hay Sinh viên? Sinh viên có chấp nhận không?
+Mạng Layer 2 (như Arbitrum, Optimism, Base...) gom và nén các giao dịch trước khi gửi bằng chứng về Layer 1, giúp đơn giá gas trung bình rẻ hơn khoảng 100 lần:
+* **Đơn giá gas tương đương:** $20 \text{ Gwei} / 100 = 0,2 \text{ Gwei}$.
+* **Chi phí cho 1 giao dịch trên Layer 2:**
+  * Quy đổi ra ETH: $0,0004 \text{ ETH} / 100 = \mathbf{0,000004 \text{ ETH}}$.
+  * Quy đổi ra USD: $1,20 \text{ USD} / 100 = \mathbf{0,012 \text{ USD}}$ (~300 VNĐ).
+* **Tổng chi phí cả tháng trên Layer 2 (1.000 lượt):**
+  * Quy đổi ra ETH: $0,4 \text{ ETH} / 100 = \mathbf{0,004 \text{ ETH}}$.
+  * Quy đổi ra USD: $1.200 \text{ USD} / 100 = \mathbf{12 \text{ USD}}$ (~300.000 VNĐ).
 
-#### 1. Ai trả khoản phí này?
-* **Cơ chế mặc định:** Người gửi giao dịch (sinh viên) phải chịu phí gas từ số dư ví cá nhân.
-* **Cơ chế tài trợ phí (Gas Sponsorship / ERC-4337 Paymaster):** Hệ thống có thể cấu hình để quỹ Câu lạc bộ chi trả toàn bộ phí thay cho sinh viên.
+### Bảng so sánh chi phí Layer 1 vs. Layer 2:
 
-#### 2. Phân tích tính kinh tế: Nếu sinh viên phải tự trả phí:
-* **Giá trị thực tế của điểm thưởng:** Trong môi trường học đường, 1 điểm thưởng sinh viên (dùng để đổi nước uống, bánh ngọt, voucher in tài liệu, quà lưu niệm...) thường có giá trị quy đổi tượng trưng từ **500 VNĐ đến 2.000 VNĐ** (khoảng **0,02 – 0,08 USD**).
-* **So sánh kinh tế trên Layer 1:**
-  * Sinh viên phải bỏ ra **1,20 USD (~30.000 VNĐ)** phí gas để nhận 1 điểm thưởng trị giá **0,04 USD (~1.000 VNĐ)**.
-  * Phí gas **cao gấp 30 lần** giá trị phần thưởng nhận được.
-  * **Đánh giá:** **Sinh viên chắc chắn 100% sẽ từ chối tham gia**. Việc phải bỏ ra 30.000 VNĐ và bắt buộc phải sở hữu tiền mã hóa ETH trong ví chỉ để tích 1 điểm thưởng là rào cản hoàn toàn phi lý đối với người dùng đại chúng.
-  * Nếu CLB trả trên Layer 1: CLB sẽ phải chi trả tới **1.200 USD/tháng (~30 triệu VNĐ)**, vượt xa ngân sách hoạt động của một câu lạc bộ sinh viên.
-* **So sánh kinh tế trên Layer 2:**
-  * Chi phí giao dịch chỉ còn **0,012 USD (~300 VNĐ)**, thấp hơn nhiều so với giá trị điểm thưởng.
-  * Quan trọng hơn, với tổng ngân sách chỉ **12 USD/tháng (~300.000 VNĐ)**, **Câu lạc bộ hoàn toàn có thể đứng ra tài trợ toàn bộ khoản phí này**. Sinh viên được tích điểm hoàn toàn miễn phí, mang lại trải nghiệm mượt mà như các ứng dụng Web2 truyền thống.
+| Khoản mục | Mạng chính (Layer 1) | Mạng Layer 2 | Mức độ chênh lệch |
+| :--- | :--- | :--- | :--- |
+| **Chi phí 1 giao dịch** | 1,20 USD (~30.000 VNĐ) | 0,012 USD (~300 VNĐ) | Layer 2 rẻ hơn 100 lần |
+| **Tổng chi phí 1 tháng (1.000 tx)** | **1.200 USD** (~30.000.000 VNĐ) | **12 USD** (~300.000 VNĐ) | Tiết kiệm **1.188 USD / tháng** |
 
 ---
 
-## 4. Kết luận khả thi mô hình kinh doanh
+## 3. Phân tích kinh tế: Ai trả khoản này? Sinh viên có chấp nhận không?
 
-### d. Mô hình kinh doanh này khả thi trên mạng nào?
+### a. Ai trả khoản phí này?
+* **Mặc định kỹ thuật:** Người gửi giao dịch (sinh viên) phải tự trả phí gas từ số dư ví cá nhân.
+* **Cơ chế tài trợ phí (Gas Sponsorship):** Thông qua chuẩn Account Abstraction (ERC-4337 / Paymaster), Câu lạc bộ (CLB) có thể đứng ra chi trả toàn bộ phí mạng thay cho sinh viên.
 
-1. **Trên mạng chính Ethereum (Layer 1): HOÀN TOÀN KHÔNG KHẢ THI (Infeasible)**
-   * **Gánh nặng chi phí khổng lồ:** 1.200 USD/tháng là khoản chi phí quá lớn, làm triệt tiêu tính khả thi tài chính của dự án.
-   * **Trải nghiệm người dùng kém:** Phí gas đắt đỏ và thời gian xác nhận khối (12–15 giây) không đáp ứng được yêu cầu thanh toán / tích điểm tức thời tại các quầy sự kiện.
+### b. So sánh phí giao dịch và giá trị thực tế của 1 điểm thưởng:
+* **Giá trị thực tế của điểm thưởng:** Trong các hoạt động sinh viên (đổi nước ngọt, bánh, photo tài liệu, quà lưu niệm, voucher tham dự sự kiện...), 1 điểm tích lũy thường có giá trị kinh tế tương đương **500 VNĐ đến 2.000 VNĐ** (khoảng **0,02 – 0,08 USD**).
+* **Nếu sinh viên phải tự trả phí:**
+  * **Trên Layer 1:** Sinh viên phải trả **30.000 VNĐ** phí gas cho một lần quét thẻ nhận điểm chỉ đáng giá **1.000 VNĐ** (phí gas cao gấp **30 lần** giá trị điểm nhận được). **Sinh viên chắc chắn 100% sẽ từ chối tham gia**, vì không ai bỏ ra số tiền lớn chỉ để nhận một phần thưởng nhỏ hơn nhiều lần, chưa kể rào cản phức tạp khi phải nạp tiền ETH thật vào ví.
+  * **Nếu CLB phải trả trên Layer 1:** Ngân sách **1.200 USD/tháng (~30 triệu VNĐ)** chỉ để duy trì việc tích điểm là hoàn toàn bất khả thi đối với quỹ hoạt động của một câu lạc bộ sinh viên.
+* **Giải pháp trên Layer 2:**
+  * Chi phí cho 1 lần cộng điểm chỉ là **300 VNĐ (0,012 USD)**. 
+  * Với tổng chi phí toàn bộ chương trình chỉ **300.000 VNĐ/tháng (12 USD)**, **Câu lạc bộ hoàn toàn có thể đứng ra tài trợ 100% khoản phí này**. Sinh viên được tích điểm hoàn toàn miễn phí mà không cần bận tâm đến phí gas blockchain.
 
-2. **Trên mạng Layer 2 (như Arbitrum, Optimism, Base, Polygon...): CỰC KỲ KHẢ THI (Highly Feasible)**
-   * **Chi phí siêu tiết kiệm:** Chi phí chỉ **12 USD/tháng (~300.000 VNĐ)**, hoàn toàn vừa vặn với quỹ tài trợ hoạt động của câu lạc bộ.
-   * **Hiệu năng cao:** Tốc độ xử lý giao dịch tính bằng mili-giây, phí gas ổn định và cực thấp.
-   * **Tích hợp Account Abstraction (ERC-4337):** Cho phép tài trợ gas và tạo ví tự động thông qua tài khoản Google/Email của sinh viên, xóa bỏ rào cản kỹ thuật Web3 và thúc đẩy sinh viên tham gia đông đảo.
+---
+
+## 4. Kết luận: Mô hình kinh doanh này khả thi trên mạng nào?
+
+* **Mạng chính Ethereum (Layer 1): HOÀN TOÀN KHÔNG KHẢ THI.**
+  * Chi phí vận hành quá đắt đỏ (1.200 USD/tháng), vượt quá khả năng tài chính của CLB.
+  * Nếu bắt sinh viên trả, dự án sẽ thất bại ngay lập tức do chi phí gas lớn hơn nhiều giá trị nhận được. Tốc độ xác nhận khối (12–15 giây) cũng quá chậm cho việc tích điểm tại quầy.
+
+* **Mạng Layer 2 (Arbitrum, Base, Optimism, Polygon...): CỰC KỲ KHẢ THI.**
+  * Chi phí vận hành siêu rẻ (chỉ 12 USD/tháng cho 1.000 lượt), câu lạc bộ dễ dàng tài trợ toàn bộ.
+  * Thời gian giao dịch gần như tức thời (1–2 giây), mang lại trải nghiệm mượt mà.
+  * Tạo điều kiện ứng dụng ví thông minh (Smart Account) để sinh viên đăng nhập nhanh bằng email/Google mà không cần kiến thức tiền mã hóa phức tạp.
