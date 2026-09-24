@@ -24,7 +24,9 @@
 -> Trả lời: Có, mã nguồn đã được bên phát hành công bố và xác thực khớp với bytecode (Source Code verified).
 
 2. Tổng cung của đồng đó là bao nhiêu? Đọc ra từ hàm nào?  
--> Trả lời: Tổng cung: [                   ]. Thông tin này được đọc ra từ hàm `totalSupply()` trong tab Read Contract.
+-> Trả lời:
+   - **Đối với đồng tiền trong mã băm (`0x1548...`):** Đồng tiền được giao dịch là **ETH** (giá trị chuyển là `0.01 ETH`). ETH là đồng tiền gốc (Native Cryptocurrency) của mạng lưới Ethereum nên không phải token ERC-20 và không phát hành thông qua smart contract, do đó không có địa chỉ hợp đồng hay hàm `totalSupply()`; tổng cung lưu hành của ETH trên toàn mạng hiện tại là khoảng ~120 triệu ETH.
+   - **Đối với hợp đồng token USDT (khuyến nghị của bài Lab):** Đọc ra từ hàm `totalSupply()` trong tab *Read Contract* của hợp đồng USDT (`0xdAC17F958D2ee523a2206206994597C13D831ec7`), tổng cung ghi nhận là **88,304,342,264.55 USDT** (tương đương `88,304,342,264,551,664` với 6 chữ số thập phân).
 
 3. Trong tab Write Contract, có hàm nào cho phép một địa chỉ đặc biệt đóng băng tài khoản người khác không? Nếu có, tên hàm là gì?  
 -> Trả lời: Có cơ chế đóng băng tài khoản. Đối với USDT, hàm thực hiện việc này có tên là `addBlackList`.
