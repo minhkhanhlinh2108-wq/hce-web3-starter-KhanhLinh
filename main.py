@@ -4,11 +4,8 @@ import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 
 def analyze_wallet(address, days=90):
-    # Lay API Key tu bien moi truong theo quy tac AGENTS.md
+    # Lay API Key tu bien moi truong theo quy tac AGENTS.md va SPEC.md
     api_key = os.environ.get("ETHERSCAN_API_KEY")
-    if not api_key:
-        print("Loi: Khong tim thay khoa API trong bien moi truong ETHERSCAN_API_KEY.")
-        return
 
     # Tinh moc thoi gian can phan tich (mac dinh 90 ngay theo SPEC.md)
     start_time = int((datetime.now() - timedelta(days=days)).timestamp())
@@ -16,35 +13,52 @@ def analyze_wallet(address, days=90):
     transactions = []
     page = 1
     
-    print(f"Dang tai du lieu tu Etherscan cho vi {address} trong {days} ngay qua...")
-    # Vong lap xu ly phan trang (dam bao lay du neu > 10.000 giao dich)
-    while True:
-        url = f"https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address={address}&startblock=0&endblock=99999999&page={page}&offset=10000&sort=asc&apikey={api_key}"
-        response = requests.get(url).json()
-        
-        # Kiem tra trang thai phan hoi truoc khi xu ly du lieu (quy tac AGENTS.md)
-        if response.get('status') == '0':
-            if response.get('message') == 'No transactions found':
-                if page == 1:
-                    print("Vi khong co giao dich trong ky")
-                    return
+    print(f"Dang tai du lieu cho vi {address} tren mang Sepolia trong {days} ngay qua...")
+
+    # Thu goi qua Etherscan V2 Sepolia (chainid=11155111) neu co API key
+    if api_key:
+        while True:
+            url = f"https://api.etherscan.io/v2/api?chainid=11155111&module=account&action=txlist&address={address}&startblock=0&endblock=99999999&page={page}&offset=10000&sort=asc&apikey={api_key}"
+            try:
+                response = requests.get(url, timeout=10).json()
+            except Exception as e:
+                print(f"Loi ket noi Etherscan API: {e}")
                 break
-            else:
-                print(f"Loi tu API: {response.get('result')}")
-                return
+
+            if response.get('status') == '0':
+                if response.get('message') == 'No transactions found':
+                    if page == 1:
+                        print("Vi khong co giao dich trong ky")
+                        return
+                    break
+                else:
+                    print(f"Loi tu Etherscan API: {response.get('result')}")
+                    break
+                    
+            txs = response.get('result', [])
+            if not txs:
+                break
                 
-        txs = response.get('result', [])
-        if not txs:
-            break
-            
-        transactions.extend(txs)
-        if len(txs) < 10000:
-            break
-        page += 1
+            transactions.extend(txs)
+            if len(txs) < 10000:
+                break
+            page += 1
+
+    # Neu khong co API key hoac Etherscan chua lay duoc du lieu, su dung Sepolia Explorer cong khai
+    if not transactions:
+        if not api_key:
+            print("Chu y: Khong co ETHERSCAN_API_KEY, dang tai tu Sepolia Testnet Explorer cong khai...")
+        url = f"https://eth-sepolia.blockscout.com/api?module=account&action=txlist&address={address}"
+        try:
+            res = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=10).json()
+            if res.get('status') == '1':
+                transactions = res.get('result', [])
+        except Exception as e:
+            print(f"Loi ket noi Sepolia Explorer: {e}")
 
     # Loc cac giao dich trong thoi gian quy dinh va sap xep tang dan theo thoi gian (R6)
-    filtered_txs = [tx for tx in transactions if int(tx['timeStamp']) >= start_time]
-    filtered_txs.sort(key=lambda x: int(x['timeStamp']))
+    filtered_txs = [tx for tx in transactions if int(tx.get('timeStamp', 0)) >= start_time]
+    filtered_txs.sort(key=lambda x: int(x.get('timeStamp', 0)))
 
     if not filtered_txs:
         print("Vi khong co giao dich trong ky")
@@ -65,7 +79,7 @@ def analyze_wallet(address, days=90):
         # Chia cho 10^18 de doi tu wei sang ETH truoc khi hien thi (R5 va quy tac AGENTS.md)
         value_eth = int(tx['value']) / (10**18)
         fee_eth = (int(tx['gasUsed']) * int(tx['gasPrice'])) / (10**18)
-        is_error = tx['isError'] == '1'
+        is_error = tx.get('isError') == '1'
         
         tx_type = ""
         amount = 0.0
@@ -109,12 +123,12 @@ def analyze_wallet(address, days=90):
     # Ve bieu do duong
     plt.figure(figsize=(10, 5))
     plt.plot(times, balances, marker='o', linestyle='-', color='b')
-    plt.title(f'Bien dong so du vi trong {days} ngay')
+    plt.title(f'Bien dong so du vi {address[:8]}... trong {days} ngay')
     plt.xlabel('Thoi gian')
     plt.ylabel('So du (ETH)')
     # An bot nhan truc x neu qua nhieu de tranh roi mat
     if len(times) > 10:
-        plt.xticks(times[::len(times)//10], rotation=45)
+        plt.xticks(times[::max(1, len(times)//10)], rotation=45)
     else:
         plt.xticks(rotation=45)
     plt.tight_layout()
@@ -122,7 +136,7 @@ def analyze_wallet(address, days=90):
     print("Da luu bieu do thanh tep bieu_do.png trong thu muc hien tai.")
 
 if __name__ == "__main__":
-    # Thay dia chi vi duoi day bang dia chi vi can phan tich
-    target_wallet = "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
-    # Mac dinh phan tich 90 ngay theo SPEC.md; co the tuy chon tham so days neu can mo rong
+    # Dia chi vi MetaMask thuc hanh Sepolia cua sinh vien
+    target_wallet = "0xeE917Bc552F81FE4db72025E05F146919b3B4032"
+    # Mac dinh phan tich 90 ngay theo SPEC.md
     analyze_wallet(target_wallet, days=90)

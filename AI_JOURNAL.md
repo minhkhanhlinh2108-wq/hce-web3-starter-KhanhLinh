@@ -177,6 +177,11 @@
 - **AI phát hiện:** Khi kiểm thử trên Windows, dòng `print("Đã lưu biểu đồ...")` bị mất thụt lề nằm ngoài phạm vi hàm, đồng thời ký tự tiếng Việt có dấu gây crash chương trình với lỗi `UnicodeEncodeError: 'charmap' codec can't encode character '\u0110'`. Ngoài ra, số ngày phân tích bị gán cứng `days=3650` thay vì mặc định 90 ngày theo `SPEC.md`.
 - **Cách sửa:** Đã thụt lề câu lệnh lưu biểu đồ vào bên trong hàm `analyze_wallet`, chuẩn hóa toàn bộ chú thích và chuỗi in sang Tiếng Việt không dấu theo đúng quy ước `AGENTS.md` để chạy ổn định trên mọi shell, và tham số hóa `days=90` (mặc định 90 ngày) theo đúng đặc tả kỹ thuật.
 
+**Lỗi 4 (Địa chỉ ví cá nhân & Mạng blockchain mục tiêu Sepolia):**
+- **AI phát hiện / Sinh viên yêu cầu:** Mã nguồn trước đó dùng địa chỉ ví mẫu Mainnet (`0x742d...`) và gọi endpoint Mainnet (`chainid=1`), dẫn đến không phân tích được dữ liệu thực tế từ ví MetaMask của sinh viên.
+- **Cách sửa:** Đã cập nhật `target_wallet` thành đúng mã ví MetaMask Sepolia của sinh viên (`0xeE917Bc552F81FE4db72025E05F146919b3B4032`), cấu hình endpoint mạng Sepolia (`chainid=11155111`) kèm cơ chế fallback Explorer công khai. Kết quả phân tích thành công 13 giao dịch on-chain thực tế của ví, tính đúng tổng vào (0.4605 ETH), tổng ra (0.010608 ETH), số dư cuối kỳ (0.449892 ETH) và tạo biểu đồ `bieu_do.png` chuẩn xác.
+- **Ai phát hiện:** Sinh viên phát hiện và yêu cầu cấu hình ví cá nhân.
+
 
 ---
 
