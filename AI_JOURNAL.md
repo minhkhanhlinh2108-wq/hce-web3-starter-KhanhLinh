@@ -203,36 +203,3 @@
 
 **Ai phát hiện:** AI và sinh viên cùng thống nhất theo yêu cầu phân tích kinh tế.
 
----
-
-## Lab 08: Khởi tạo README dự án nhóm (README8.15.md)
-
-**Prompt:**
-> Hãy tạo một tệp `README8.15.md` cho repository nhóm của dự án môn học. 
-> Tên dự án: Scholar - Giải ngân học bổng minh bạch.
-> Mục tiêu: Đảm bảo giải ngân tiền học bổng chính xác khi đạt đúng điều kiện và chặn các giao dịch sai đối tượng.
-> 
-> Yêu cầu cấu trúc Markdown rõ ràng gồm các phần:
-> 1. Tiêu đề dự án và Mô tả ngắn gọn.
-> 2. Danh sách thành viên nhóm (để sẵn placeholder [Họ tên - Mã SV]).
-> 3. Luồng nghiệp vụ cốt lõi (Mô tả 3 bước: Tạo suất -> Xác nhận mốc -> Giải ngân/Chặn).
-> 4. Công nghệ sử dụng (Solidity, Antigravity IDE, Layer 2).
-> 5. Hướng dẫn chạy thử (Để sẵn các gạch đầu dòng trống để điền sau ở các Lab tiếp theo).
-
-**AI trả về:**
-- Khởi tạo tệp `README8.15.md` chuẩn Markdown với đầy đủ 5 phần theo yêu cầu:
-  1. Tiêu đề và mô tả ngắn gọn về dự án "Scholar - Giải ngân học bổng minh bạch", nêu rõ mục tiêu tự động hóa giải ngân đúng mốc và kiểm soát rủi ro, chống gian lận.
-  2. Bảng danh sách thành viên với placeholder `[Họ tên - Mã SV]` kèm phân công vai trò nhiệm vụ rõ ràng.
-  3. Mô tả chi tiết luồng nghiệp vụ 3 bước: Tạo suất -> Xác nhận mốc -> Giải ngân/Chặn kèm sơ đồ trực quan (Mermaid diagram).
-  4. Liệt kê công nghệ sử dụng: Solidity (`^0.8.20`), Layer 2 (tiết kiệm chi phí gas), Antigravity IDE.
-  5. Hướng dẫn chạy thử với checklist các bước chuẩn (Cài đặt môi trường, cấu hình `.env`, biên dịch, kiểm thử, deploy Layer 2, khởi chạy DApp) để sẵn sàng điền lệnh ở các Lab sau.
-
-**Đánh giá:** Dùng được.
-
-**Chỗ sai / Điểm cần lưu ý:**
-- Cần chú ý tính khả thi khi giải ngân on-chain (phân quyền vai trò quản lý quỹ/thẩm định viên và bảo vệ an toàn ví sinh viên).
-- Giữ sẵn khung các gạch đầu dòng hướng dẫn chạy thử để các thành viên dễ dàng cập nhật lệnh theo tiến độ các Lab tiếp theo.
-
-**Cách sửa:** Thiết lập cấu trúc tệp [README8.15.md](file:///d:/crypto-smart-contract-2026/hce-web3-starter-KhanhLinh/README8.15.md) chuẩn mực và đồng bộ nhật ký làm việc vào [AI_JOURNAL.md](file:///d:/crypto-smart-contract-2026/hce-web3-starter-KhanhLinh/AI_JOURNAL.md).
-
-**Ai phát hiện:** AI tự động cấu trúc hóa và sinh viên duyệt nghiệm thu.
