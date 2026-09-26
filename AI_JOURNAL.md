@@ -31,13 +31,13 @@
 - Trích xuất thông tin giao dịch thành công: số tiền chuyển (`0.01 ETH`), phí thực trả (`0.000053956450443 ETH`), trạng thái `Success`.
 - Giải thích tính bất biến (immutability) và phi tập trung của blockchain: giao dịch đã vào khối thì không thể đảo ngược hay hủy bỏ, cơ hội duy nhất là người nhận tự nguyện chuyển lại.
 
-**Đánh giá:** Dùng được.
+**Đánh giá:** Dùng được (sau khi bổ sung dữ liệu giao dịch thất bại).
 
-**Chỗ sai:** Không có sai sót về lý thuyết; cần kiểm tra số liệu phí thực tế trên Etherscan Sepolia để có giá trị chính xác tuyệt đối.
+**Chỗ sai / Điểm cần lưu ý:** Bảng so sánh ban đầu bị bỏ trống hoàn toàn cột "Giao dịch thất bại", dẫn đến việc thiếu 50% dữ liệu so sánh theo yêu cầu bài thực hành.
 
-**Cách sửa:** Sinh viên tự tra cứu mã băm trên Etherscan mạng Sepolia để đối chiếu và lấy số liệu chi tiết đưa vào bảng.
+**Cách sửa:** AI đã tra cứu trực tiếp từ RPC mạng Sepolia Testnet để lấy mã băm giao dịch thất bại thực tế `0xebde8ef1572719b7cced99b045ae5035388eb405144cbb18efa6c86de03393d5`, điền đầy đủ các trường: giá trị chuyển (0 ETH), phí thực trả (`0.000040148191437384 ETH`), trạng thái (Failed / Reverted) và phân tích nguyên nhân lỗi revert (`OMMLibrary: POOL_NOT_FOUND`) vào bảng so sánh trong [lab02.md](file:///d:/crypto-smart-contract-2026/hce-web3-starter-KhanhLinh/lab02.md).
 
-**Ai phát hiện:** Sinh viên đối chiếu thực tế.
+**Ai phát hiện:** AI phát hiện khi kiểm tra rà soát lại bài Lab 02.
 
 ---
 
@@ -172,6 +172,11 @@
 **Lỗi 2 (Mục số 3 trong danh mục kiểm tra: Phân trang):**
 - **AI phát hiện:** Mã AI sinh ra lúc đầu chỉ gọi API đúng một lần (lấy mặc định trang 1), bỏ qua trường hợp ngoại lệ "Nếu ví có hơn 10.000 giao dịch: API trả theo trang". Điều này dẫn đến thiếu hụt dữ liệu nghiêm trọng.
 - **Cách sửa:** Tôi đã bổ sung vòng lặp `while True`, tăng biến `page += 1` sau mỗi lần gọi và điều kiện dừng `if len(txs) < 10000: break` để đảm bảo lấy toàn bộ lịch sử giao dịch trước khi tiến hành lọc 90 ngày.
+
+**Lỗi 3 (Lỗi thụt lề Indentation & Bảng mã ký tự Windows cp1252):**
+- **AI phát hiện:** Khi kiểm thử trên Windows, dòng `print("Đã lưu biểu đồ...")` bị mất thụt lề nằm ngoài phạm vi hàm, đồng thời ký tự tiếng Việt có dấu gây crash chương trình với lỗi `UnicodeEncodeError: 'charmap' codec can't encode character '\u0110'`. Ngoài ra, số ngày phân tích bị gán cứng `days=3650` thay vì mặc định 90 ngày theo `SPEC.md`.
+- **Cách sửa:** Đã thụt lề câu lệnh lưu biểu đồ vào bên trong hàm `analyze_wallet`, chuẩn hóa toàn bộ chú thích và chuỗi in sang Tiếng Việt không dấu theo đúng quy ước `AGENTS.md` để chạy ổn định trên mọi shell, và tham số hóa `days=90` (mặc định 90 ngày) theo đúng đặc tả kỹ thuật.
+
 
 ---
 
