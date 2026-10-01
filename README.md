@@ -1,9 +1,16 @@
 # ECO2432 Web3 Starter
 
+> ### 📋 Thông tin sinh viên
+> | Mục | Chi tiết |
+> | :--- | :--- |
+> | **Họ và tên** | Nguyễn Minh Khánh Linh |
+> | **MSSV** | 24K4320024 |
+> | **Lớp** | K58KTS |
+> | **Email** | [24K4320024@hce.edu.vn](mailto:24K4320024@hce.edu.vn) |
+
 Kho khởi đầu dùng xuyên suốt 15 bài thực hành.
 
-## Bắt đầu (thay cho bước "Fork kho" trong sổ tay)
-
+## Bắt đầu
 Sổ tay ghi "Fork kho `hce-web3-starter`". Học kỳ này kho được phát dạng tệp nén, nên làm như sau:
 
 1. Giải nén thư mục này vào máy, mở bằng Antigravity.

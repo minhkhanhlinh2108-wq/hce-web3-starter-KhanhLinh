@@ -208,3 +208,23 @@
 
 **Ai phát hiện:** AI và sinh viên cùng thống nhất theo yêu cầu phân tích kinh tế.
 
+---
+
+## Cập nhật thông tin sinh viên (README.md) & Đồng bộ GitHub
+
+**Prompt:**
+> tại trang README.md hãy thêm cho tôi khung ghi họ và tên: Nguyễn Minh Khánh Linh, MSSV: 24K4320024, Lớp: K58KTS, Email: 24K4320024@hce.edu.vn sau tiêu đề 'ECO2432 Web3 Starter'
+> và up lên github cá nhân cho tôi
+
+**AI trả về:**
+- Bổ sung khung thông tin sinh viên (dạng blockquote và bảng biểu) ngay sau tiêu đề chính `# ECO2432 Web3 Starter` trong `README.md`.
+- Tự động đồng bộ nhật ký công việc vào `AI_JOURNAL.md`.
+- Thực hiện `git add`, `git commit` và `git push` đưa toàn bộ thay đổi lên kho GitHub cá nhân.
+
+**Đánh giá:** Dùng được.
+
+**Chỗ sai / Điểm cần lưu ý:** Cần căn chỉnh khung thông tin bằng định dạng bảng Markdown kết hợp Blockquote để đảm bảo hiển thị nổi bật và tương thích chuẩn GitHub Markdown.
+
+**Cách sửa:** Tạo khung bảng định dạng rõ ràng gồm Họ tên, MSSV, Lớp và Email kèm link `mailto:` tiện dụng.
+
+**Ai phát hiện:** AI chủ động tối ưu định dạng bảng khung theo yêu cầu của sinh viên.
