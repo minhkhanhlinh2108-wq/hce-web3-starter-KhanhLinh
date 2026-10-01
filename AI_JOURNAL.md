@@ -228,3 +228,23 @@
 **Cách sửa:** Tạo khung bảng định dạng rõ ràng gồm Họ tên, MSSV, Lớp và Email kèm link `mailto:` tiện dụng.
 
 **Ai phát hiện:** AI chủ động tối ưu định dạng bảng khung theo yêu cầu của sinh viên.
+
+---
+
+## Tinh gọn README: Loại bỏ các mục và hướng dẫn từ Lab 08 trở đi
+
+**Prompt:**
+> bỏ các mục, lệnh dành cho các lab từ lab08 trở đi cho tôi
+
+**AI trả về:**
+- Rà soát toàn bộ tệp `README.md` và loại bỏ các mục, cấu trúc và hướng dẫn liên quan đến các bài từ Lab 08 trở đi (hướng dẫn repo nhóm Lab 8, hợp đồng mẫu `contracts/training/` dùng cho Lab 9, 10, 11, 13, và giao diện web `web/index.html` dùng cho Lab 15).
+- Tinh gọn mô tả phạm vi kho lưu trữ tập trung vào các bài thực hành cá nhân.
+- Đồng bộ nhật ký làm việc và đẩy mã nguồn cập nhật lên GitHub cá nhân.
+
+**Đánh giá:** Dùng được.
+
+**Chỗ sai / Điểm cần lưu ý:** Cần loại bỏ triệt để cả các dòng lưu ý hợp đồng lỗi `Buggy`, `Vulnerable` (vốn thuộc các bài Lab 9-13) để tài liệu `README.md` hoàn toàn nhất quán.
+
+**Cách sửa:** Đã xóa bỏ đoạn hướng dẫn Lab 8, các mục liên quan đến `training/`, `web/` và các cảnh báo tương ứng; chỉ giữ lại thành phần tài liệu và hợp đồng cho các bài thực hành cá nhân.
+
+**Ai phát hiện:** Sinh viên yêu cầu tinh gọn; AI rà soát và làm sạch toàn diện tài liệu.

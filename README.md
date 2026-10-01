@@ -8,7 +8,7 @@
 > | **Lớp** | K58KTS |
 > | **Email** | [24K4320024@hce.edu.vn](mailto:24K4320024@hce.edu.vn) |
 
-Kho khởi đầu dùng xuyên suốt 15 bài thực hành.
+Kho khởi đầu dùng cho các bài thực hành cá nhân.
 
 ## Bắt đầu
 Sổ tay ghi "Fork kho `hce-web3-starter`". Học kỳ này kho được phát dạng tệp nén, nên làm như sau:
@@ -28,18 +28,10 @@ git remote add origin https://github.com/<tai-khoan>/<ten-repo>.git   # repo t�
 git push -u origin main
 ```
 
-Lab 8 (repo nhóm): một thành viên tạo repo trống mới, đưa nội dung thư mục này lên theo đúng các
-lệnh trên, rồi mời các thành viên khác làm collaborator.
-
 ## Cấu trúc
 
-- `contracts/training/`: hợp đồng mẫu dùng ở Lab 9, 10, 11 và 13
-  (`TimeLockVault`, `VaultBuggy`, `ClassPoint`, `VulnerableBank`).
 - `contracts/lab04/ClubTokens.sol`: ba token dùng cho Lab 4.
-- `web/index.html`: giao diện mẫu dùng ở Lab 15.
 - `prompt_templates.md`: mẫu câu lệnh có yêu cầu và tiêu chí kiểm chứng rõ ràng.
-
-Các hợp đồng có chữ `Buggy`, `Vulnerable` hoặc cảnh báo trong mã đều chứa lỗi có chủ đích.
 
 ## Chạy hợp đồng
 
